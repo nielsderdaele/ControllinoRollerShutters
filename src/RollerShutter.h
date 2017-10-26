@@ -2,6 +2,10 @@
 #include "ISetupable.h"
 #include "ILoopable.h"
 #include "IRollerShutter.h"
+#include "IRollerShutterStateListener.h"
+#include <LinkedList.h>
+
+
 #ifndef ROLLERSHUTTER_H
 #define ROLLERSHUTTER_H
 
@@ -14,6 +18,7 @@
 #define ROLLERSHUTTER_STATE_CLOSED 0
 #define ROLLERSHUTTER_STATE_OPEN 1
 #define ROLLERSHUTTER_MAX_MOVEDURATION 240000 // 4 minutes
+#define ROLLERSHUTTER_MIN_POSITION_CHANGE 250 // minimum required move duration when setting position (millis)
 
 class RollerShutter : public IRollerShutter, public ISetupable, public ILoopable {
   private:
@@ -27,7 +32,12 @@ class RollerShutter : public IRollerShutter, public ISetupable, public ILoopable
     unsigned long moveDownMillis;
     unsigned long moveUpMillis;  
     long currentPosition;  
-    byte positionUnknown;
+    long stopPosition;
+    bool positionUnknown;
+
+    LinkedList<IRollerShutterStateListener*> *stateListeners;
+
+    void onStateChanged();
   public:  
     RollerShutter(byte, byte, byte, int);
     void setup();
@@ -41,6 +51,10 @@ class RollerShutter : public IRollerShutter, public ISetupable, public ILoopable
     void moveDown();
     void moveUp();
     void halt();
+
+    void setPosition(double);
+
+    bool addStateListener(IRollerShutterStateListener*);
 };
 
 #endif

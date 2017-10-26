@@ -87,7 +87,7 @@ void setupRollerShutter(const RollerShutterConfig& config) {
   RollerShutter* shutter = new RollerShutter(config.id, config.relaisLive, config.relaisUpDown, config.upDownDuration);  
   ButtonRollerShutter* buttonRollerShutter = new ButtonRollerShutter(shutter, btnUp, btnDown, config.buttonClickEnabled);
   String mqttId = String(config.id);
-  String mqttChannel = String("home-assistant/cover/" + mqttId + "/set");
+  String mqttChannel = String("home-assistant/cover/" + mqttId);
   MQTTRollerShutter* mqttShutter = new MQTTRollerShutter(*shutter, mqttClient, mqttChannel);
 
   /* Setup hardware */

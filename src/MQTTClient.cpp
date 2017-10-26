@@ -84,4 +84,11 @@ void MQTTClient::onMessageReceived(const String& channel, const String& message)
   }  
 }
 
+void MQTTClient::publishMessage(const String& channelName, const String& message){
+  if (this->client->connected()) {
+    this->client->publish(channelName.c_str(), message.c_str());
+  }
+
+}
+
 
