@@ -2,6 +2,7 @@
 #include "ISetupable.h"
 #include "ILoopable.h"
 #include <Arduino.h>
+#include <LinkedList.h>
 #ifndef BUTTON_H 
 #define BUTTON_H
 
@@ -20,7 +21,9 @@ class Button : public ISetupable, public ILoopable {
     unsigned long clickedMillis;
     boolean isHolding;
     int numberOfClicks;
+    
     IButtonListener *listener;
+    LinkedList<IButtonListener*> *listeners;
     
     void checkButtonEvents();
     void checkStateChange();
@@ -35,6 +38,7 @@ class Button : public ISetupable, public ILoopable {
     void loop();    
     
     void setButtonListener(IButtonListener*);
+    void addButtonListener(IButtonListener*);
 };
 
 #endif

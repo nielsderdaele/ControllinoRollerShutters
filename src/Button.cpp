@@ -8,6 +8,7 @@ Button::Button(byte pin) {
   this->clickedMillis = 0;
   this->isHolding = false;
   this->numberOfClicks = 0;
+  this->listeners = new LinkedList<IButtonListener*>();
 }
 
 void Button::setup() {
@@ -18,6 +19,9 @@ void Button::loop() {
   this->checkStateChange();
 }
 
+void Button::addButtonListener(IButtonListener *listener) {
+  this->listeners->add(listener);
+}
 void Button::setButtonListener(IButtonListener *listener) {
   this->listener = listener;
 }
@@ -72,6 +76,9 @@ void Button::onClick() {
   if (this->listener != 0) {
     this->listener->onButtonClicked(this, this->numberOfClicks);    
   }
+  for (int i = 0; i < this->listeners->size(); i++){
+    this->listeners->get(i)->onButtonClicked(this, this->numberOfClicks);
+  }
 
   /* reset number of clicks after sending the event */
   this->numberOfClicks = 0;
@@ -87,6 +94,9 @@ void Button::onHold() {
   if (this->listener != 0) {
     this->listener->onButtonHold(this);    
   }
+  for (int i = 0; i < this->listeners->size(); i++){
+    this->listeners->get(i)->onButtonHold(this);
+  }
 }
 void Button::onRelease() {
   /* Remove holding flag */
@@ -96,4 +106,7 @@ void Button::onRelease() {
   if (this->listener != 0) {
     this->listener->onButtonRelease(this);    
   }  
+  for (int i = 0; i < this->listeners->size(); i++){
+    this->listeners->get(i)->onButtonRelease(this);
+  }
 }

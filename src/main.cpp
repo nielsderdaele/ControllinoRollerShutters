@@ -130,7 +130,7 @@ void setup() {
     if (groupConfig.enabled) {
       setupRollerShutterGroup(groupConfig);
     }
-  }  
+  } 
 
   /* Initialize Ethernet Shield */
   Ethernet.begin(mac, ip, myDns, gateway, subnet);  
