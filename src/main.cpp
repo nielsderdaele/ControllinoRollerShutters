@@ -74,33 +74,38 @@ void setupRollerShutterGroup(const RollerShutterGroupConfig& config) {
 }
 
 void setupRollerShutter(const RollerShutterConfig& config) {
-  Serial.println("Roller shutter");
-  Serial.println(config.buttonUp);
-  Serial.println(config.buttonDown);
-  Serial.println(config.relaisLive);
-  Serial.println(config.relaisUpDown);
-  Serial.println(config.upDownDuration);
+  //Serial.println("Roller shutter");
+  //Serial.println(config.buttonUp);
+  //Serial.println(config.buttonDown);
+  //Serial.println(config.relaisLive);
+  //Serial.println(config.relaisUpDown);
+  //Serial.println(config.upDownDuration);
   
-  /* Roller Shutter */
-  Button* btnUp = new Button(config.buttonUp);
-  Button* btnDown = new Button(config.buttonDown);
-  RollerShutter* shutter = new RollerShutter(config.id, config.relaisLive, config.relaisUpDown, config.upDownDuration);  
-  ButtonRollerShutter* buttonRollerShutter = new ButtonRollerShutter(shutter, btnUp, btnDown, config.buttonClickEnabled);
+  /* Setup roller shutter */
+  RollerShutter* shutter = new RollerShutter(config.id, config.relaisLive, config.relaisUpDown, config.upDownDuration);    
+  shutter->setup(); 
+  loopables.add(shutter);
+
+  /* Setup MQTT shutter*/
   String mqttId = String(config.id);
   String mqttChannel = String("home-assistant/cover/" + mqttId);
   MQTTRollerShutter* mqttShutter = new MQTTRollerShutter(*shutter, mqttClient, mqttChannel);
-
-  /* Setup hardware */
-  btnUp->setup();
-  btnDown->setup();
-  shutter->setup();  
-  buttonRollerShutter->setup();
   mqttShutter->setup();  
+  
 
-  /* Add to loopables */
-  loopables.add(btnUp);
-  loopables.add(btnDown);
-  loopables.add(shutter);
+  /* Setup button shutter */
+  if (config.hasButton == 1) {    
+    Button* btnUp = new Button(config.buttonUp);
+    Button* btnDown = new Button(config.buttonDown);
+    ButtonRollerShutter* buttonRollerShutter = new ButtonRollerShutter(shutter, btnUp, btnDown, config.buttonClickEnabled);
+
+    btnUp->setup();
+    btnDown->setup(); 
+    buttonRollerShutter->setup();
+
+    loopables.add(btnUp);
+    loopables.add(btnDown);
+  }  
 
   /* Add to rollershutters */
   rollerShutters.add(shutter);

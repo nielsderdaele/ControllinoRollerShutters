@@ -10,9 +10,10 @@ struct RollerShutterConfig {
   byte enabled;  
   byte relaisUpDown;
   byte relaisLive;
+  byte hasButton;
   byte buttonUp;
   byte buttonDown;
-  byte buttonClickEnabled;
+  byte buttonClickEnabled;  
   int upDownDuration;    
 };
 

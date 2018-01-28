@@ -30,6 +30,9 @@
 #define ROLLER_4_LIVE CONTROLLINO_R10
 #define ROLLER_4_UPDOWN CONTROLLINO_R13
 
+#define ROLLER_5_LIVE CONTROLLINO_R11
+#define ROLLER_5_UPDOWN CONTROLLINO_R12
+
 
 #define BTN_GROUP_0_UP CONTROLLINO_A10
 #define BTN_GROUP_0_DOWN CONTROLLINO_A11
@@ -45,6 +48,7 @@ Configuration* Configuration::load() {
   rollerShutterConfigs[0].enabled = 1;  
   rollerShutterConfigs[0].relaisUpDown = ROLLER_0_UPDOWN;
   rollerShutterConfigs[0].relaisLive = ROLLER_0_LIVE;
+  rollerShutterConfigs[0].hasButton = 1;
   rollerShutterConfigs[0].buttonDown = BTN_0_DOWN;
   rollerShutterConfigs[0].buttonUp = BTN_0_UP;
   rollerShutterConfigs[0].buttonClickEnabled = 1;
@@ -55,6 +59,7 @@ Configuration* Configuration::load() {
   rollerShutterConfigs[1].enabled = 1;
   rollerShutterConfigs[1].relaisUpDown = ROLLER_1_UPDOWN;
   rollerShutterConfigs[1].relaisLive = ROLLER_1_LIVE;
+  rollerShutterConfigs[1].hasButton = 1;
   rollerShutterConfigs[1].buttonDown = BTN_1_DOWN;
   rollerShutterConfigs[1].buttonUp = BTN_1_UP;
   rollerShutterConfigs[1].buttonClickEnabled = 1;
@@ -65,6 +70,7 @@ Configuration* Configuration::load() {
   rollerShutterConfigs[2].enabled = 1;
   rollerShutterConfigs[2].relaisUpDown = ROLLER_2_UPDOWN;
   rollerShutterConfigs[2].relaisLive = ROLLER_2_LIVE;
+  rollerShutterConfigs[2].hasButton = 1;
   rollerShutterConfigs[2].buttonDown = BTN_2_DOWN;
   rollerShutterConfigs[2].buttonUp = BTN_2_UP;
   rollerShutterConfigs[2].buttonClickEnabled = 1;
@@ -75,6 +81,7 @@ Configuration* Configuration::load() {
   rollerShutterConfigs[3].enabled = 1;
   rollerShutterConfigs[3].relaisUpDown = ROLLER_3_UPDOWN;
   rollerShutterConfigs[3].relaisLive = ROLLER_3_LIVE;
+  rollerShutterConfigs[3].hasButton = 1;
   rollerShutterConfigs[3].buttonDown = BTN_3_DOWN;
   rollerShutterConfigs[3].buttonUp = BTN_3_UP;
   rollerShutterConfigs[3].buttonClickEnabled = 1;
@@ -84,6 +91,7 @@ Configuration* Configuration::load() {
   rollerShutterConfigs[4].enabled = 1;
   rollerShutterConfigs[4].relaisUpDown = ROLLER_4_UPDOWN;
   rollerShutterConfigs[4].relaisLive = ROLLER_4_LIVE;
+  rollerShutterConfigs[4].hasButton = 1;
   rollerShutterConfigs[4].buttonDown = BTN_4_DOWN;
   rollerShutterConfigs[4].buttonUp = BTN_4_UP;
   rollerShutterConfigs[4].buttonClickEnabled = 1;
@@ -92,6 +100,13 @@ Configuration* Configuration::load() {
   /* Waskot */
   rollerShutterConfigs[5].id = 5;
   rollerShutterConfigs[5].enabled = 0;
+  rollerShutterConfigs[5].relaisUpDown = ROLLER_5_UPDOWN;
+  rollerShutterConfigs[5].relaisLive = ROLLER_5_LIVE;
+  rollerShutterConfigs[5].hasButton = 0;
+  rollerShutterConfigs[5].buttonDown = -1;
+  rollerShutterConfigs[5].buttonUp = -1;
+  rollerShutterConfigs[5].buttonClickEnabled = 1;
+  rollerShutterConfigs[5].upDownDuration = 15000;
 
   /* */
   int numberOfGroupConfigurations = 1;
@@ -99,18 +114,19 @@ Configuration* Configuration::load() {
   /* Create array with roller shutter configurations */
   RollerShutterGroupConfig* rollerShutterGroupConfigs = new RollerShutterGroupConfig[numberOfGroupConfigurations];
 
-  byte* rollerShuttersGroup0 = new byte[5];
+  byte* rollerShuttersGroup0 = new byte[6];
   rollerShuttersGroup0[0] = 0;
   rollerShuttersGroup0[1] = 1;
   rollerShuttersGroup0[2] = 2;
   rollerShuttersGroup0[3] = 3;
   rollerShuttersGroup0[4] = 4;
+  rollerShuttersGroup0[5] = 5;
 
   rollerShutterGroupConfigs[0].enabled = 1;
   rollerShutterGroupConfigs[0].buttonUp = BTN_GROUP_0_UP;
   rollerShutterGroupConfigs[0].buttonDown = BTN_GROUP_0_DOWN;
   rollerShutterGroupConfigs[0].rollerShutters = rollerShuttersGroup0;
-  rollerShutterGroupConfigs[0].numberOfRollerShutters = 5;
+  rollerShutterGroupConfigs[0].numberOfRollerShutters = 6;
 
 
   Configuration* conf = new Configuration(numberOfConfigurations, rollerShutterConfigs, numberOfGroupConfigurations, rollerShutterGroupConfigs);
