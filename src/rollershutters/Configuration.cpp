@@ -99,7 +99,7 @@ Configuration* Configuration::load() {
 
   /* Waskot */
   rollerShutterConfigs[5].id = 5;
-  rollerShutterConfigs[5].enabled = 0;
+  rollerShutterConfigs[5].enabled = 1;
   rollerShutterConfigs[5].relaisUpDown = ROLLER_5_UPDOWN;
   rollerShutterConfigs[5].relaisLive = ROLLER_5_LIVE;
   rollerShutterConfigs[5].hasButton = 0;

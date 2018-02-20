@@ -1,3 +1,4 @@
+#include <Controllino.h>
 #ifndef IROLLERSHUTTER_H
 #define IROLLERSHUTTER_H
 

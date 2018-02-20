@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "RollerShutter.h"
-#include "IMQTTMessageListener.h"
-#include "MQTTClient.h"
+#include "..\mqtt\IMQTTMessageListener.h"
+#include "..\mqtt\MQTTClient.h"
 #ifndef MQTTROLLERSHUTTER_H
 #define MQTTROLLERSHUTTER_H
 
