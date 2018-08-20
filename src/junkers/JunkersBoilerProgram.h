@@ -1,15 +1,15 @@
 #include "IProgram.h"
+#include "JunkersBoiler.h"
 #include <Controllino.h>
 #ifndef JUNKERSBOILERPROGRAM_H
 #define JUNKERSBOILERPROGRAM_H
 
 class JunkersBoilerProgram : public IProgram {
   private:         
-    unsigned long lastReadMillis;
-    byte inputPin;
+    JunkersBoiler* junkersBoiler;
 
   public:  
-    JunkersBoilerProgram(byte inputPin);
+    JunkersBoilerProgram(const MQTTClient&);
     
     void setup();
     void loop();

@@ -47,11 +47,11 @@ void MQTTRollerShutter::onMQTTMessageReceived(const String& channelName, const S
 void MQTTRollerShutter::onStateChanged(void* sender, double currentPosition){
   Serial.println("State Changed: " + String(currentPosition));
   if (currentPosition == 0) {
-    this->mqttClient->publishMessage(this->mqttStateChannelName, "0");
+    this->mqttClient->publishMessage(this->mqttStateChannelName, "0", true);
   } else if (currentPosition >= 1) {
-    this->mqttClient->publishMessage(this->mqttStateChannelName, "100");
+    this->mqttClient->publishMessage(this->mqttStateChannelName, "100", true);
   } else {
     int percentage = (currentPosition * 100);
-    this->mqttClient->publishMessage(this->mqttStateChannelName, String(percentage));
+    this->mqttClient->publishMessage(this->mqttStateChannelName, String(percentage), true);
   }
 }

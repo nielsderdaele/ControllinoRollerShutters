@@ -85,10 +85,12 @@ void MQTTClient::onMessageReceived(const String& channel, const String& message)
 }
 
 void MQTTClient::publishMessage(const String& channelName, const String& message){
+  this->publishMessage(channelName, message, false);
+}
+void MQTTClient::publishMessage(const String& channelName, const String& message, bool retained){
   if (this->client->connected()) {
-    this->client->publish(channelName.c_str(), message.c_str());
+    this->client->publish(channelName.c_str(), message.c_str(), retained);
   }
-
 }
 
 

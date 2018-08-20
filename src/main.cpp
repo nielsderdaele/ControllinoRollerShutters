@@ -46,7 +46,7 @@ void setup() {
   programs.add(program);  
 
   /* Create Junkers boiler program */
-  program = new JunkersBoilerProgram(CONTROLLINO_A15);
+  program = new JunkersBoilerProgram(mqttClient);
   programs.add(program);
 
   /* Setup mqtt client */
