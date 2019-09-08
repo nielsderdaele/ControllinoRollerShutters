@@ -1,6 +1,7 @@
 #include <Controllino.h>
 #include <SPI.h>
 #include <Ethernet.h>
+#include <Dns.h>
 #include <PubSubClient.h>
 #include <stdint.h>
 #include "IProgram.h"
@@ -41,7 +42,11 @@ void setup() {
   /* Initialize Ethernet Shield */
   // Ethernet.begin(mac, ip, myDns, gateway, subnet); // Static IP  
   Ethernet.begin(mac); // DHCP
+  Serial.print("Local IP: ");
   Serial.println(Ethernet.localIP());
+
+  Serial.print("DNS Server: ");
+  Serial.println(Ethernet.dnsServerIP());
 
   /* Create Roller shutter program */
   IProgram* program = new RollerShutterProgram(mqttClient);
@@ -59,6 +64,8 @@ void setup() {
 		IProgram* program = programs.get(i);
     program->setup();
   }
+
+  Serial.flush();
 }
 
 void loop() {   

@@ -36,14 +36,13 @@ MQTTClient::MQTTClient(const IPAddress& server, int port, const Client& client) 
   this->client->setCallback(MQTTClient_callback);
   mqttClient_callbackClients.add(this);
 }
-MQTTClient::MQTTClient(const String& hostname, int port, const Client& client) {
+MQTTClient::MQTTClient(const char* hostname, int port, const Client& client) {
   this->listeners = new LinkedList<IMQTTMessageListener*>();
   this->channels = new LinkedList<String>();
   this->networkClient = &client;
   this->connectionAttemptMillis = 0;
 
-  this->client = new PubSubClient(*this->networkClient);
-  this->client->setServer(hostname.c_str(), port);
+  this->client = new PubSubClient(hostname, port, *this->networkClient);
   this->client->setCallback(MQTTClient_callback);
   mqttClient_callbackClients.add(this);
 }
@@ -54,7 +53,7 @@ void MQTTClient::loop() {
   if (!client->connected()) {
     if (millis() - this->connectionAttemptMillis > 5000) {
       /* Reconnect */
-      Serial.print("Attempting MQTT connection...");
+      Serial.print("Attempting MQTT connection...");      
       Serial.flush();
 
       boolean connected = this->client->connect("ControllinoMEGA", "pi", "raspberry");      

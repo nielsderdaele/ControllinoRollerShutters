@@ -21,7 +21,7 @@ class MQTTClient : public ISetupable, public ILoopable {
     void onMessageReceived(const String& channel, const String& message);
   public:  
     MQTTClient(const IPAddress&, int, const Client&);
-    MQTTClient(const String&, int, const Client&);
+    MQTTClient(const char*, int, const Client&);
     void publishMessage(const String& channelName, const String& message);
     void publishMessage(const String& channelName, const String& message, bool retained);
     void addMessageListener(const String&, const IMQTTMessageListener&);
