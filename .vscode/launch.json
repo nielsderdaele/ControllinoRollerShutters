@@ -12,16 +12,19 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "c:/Users/nde/Source/PlatformIO/ControllinoRollerShutters/.pioenvs/controllino_mega/firmware.elf",
+            "executable": "c:/Users/nde/Source/PlatformIO/ControllinoRollerShutters/.pio/build/controllino_mega/firmware.elf",
             "toolchainBinDir": "C:/Users/nde/.platformio/packages/toolchain-atmelavr/bin",
-            "preLaunchTask": "PlatformIO: Pre-Debug",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            },
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
-            "name": "PIO Debug (Skip Pre-Debug)",
-            "executable": "c:/Users/nde/Source/PlatformIO/ControllinoRollerShutters/.pioenvs/controllino_mega/firmware.elf",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "c:/Users/nde/Source/PlatformIO/ControllinoRollerShutters/.pio/build/controllino_mega/firmware.elf",
             "toolchainBinDir": "C:/Users/nde/.platformio/packages/toolchain-atmelavr/bin",
             "internalConsoleOptions": "openOnSessionStart"
         }

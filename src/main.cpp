@@ -13,17 +13,18 @@ LinkedList<MQTTClient*> mqttClient_callbackClients = LinkedList<MQTTClient*>();
 /* MAC address (ethernet) */
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-/* Local address */
-IPAddress ip(192, 168, 1, 10);
+/* Local address (STATIC) -> DISABLED */
+/* IPAddress ip(192, 168, 1, 10);
 IPAddress myDns(192,168,1, 1);
 IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
+IPAddress subnet(255, 255, 255, 0);*/
 
 /* Network client */
 Client* client = new EthernetClient();
 
-/* Remote address */
-IPAddress serverAddr(192,168,1,100); // ip address to ping
+/* Remote address (STATIC) -> DISABLED */
+// IPAddress serverAddr(192,168,1,100); // ip address to ping
+char* serverAddr = "mqtt.int.nielsderdaele.be";
 
 /* MQTT client => connects to home assistant */
 MQTTClient mqttClient(serverAddr, 1883, *client);
@@ -38,7 +39,8 @@ void setup() {
   Serial.begin(9600);
   
   /* Initialize Ethernet Shield */
-  Ethernet.begin(mac, ip, myDns, gateway, subnet);  
+  // Ethernet.begin(mac, ip, myDns, gateway, subnet); // Static IP  
+  Ethernet.begin(mac); // DHCP
   Serial.println(Ethernet.localIP());
 
   /* Create Roller shutter program */
@@ -60,8 +62,11 @@ void setup() {
 }
 
 void loop() {   
+  /* Maintain ethernet connection */
+  Ethernet.maintain();
+
   /* Loop mqtt client */
-  mqttClient.loop();
+  mqttClient.loop(); 
 
   /* Loop each program */
   for(int i = 0; i < programs.size(); i++){
